@@ -1,6 +1,6 @@
 import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {removeTodo, loadtodos} from "./actions";
+import {removeTodo, loadtodos, editTodo} from "./actions";
 import Header from "./Header";
 
 function App() {
@@ -17,13 +17,9 @@ function App() {
     const handelClick = (id) =>{
         dispatch(removeTodo(id))
     }
-
-
-
-
-
-
-
+    const editClick = (id, completed) =>{
+        dispatch(editTodo(id, completed))
+    }
 
 
     return (
@@ -36,7 +32,10 @@ function App() {
                 return(
                     <div className='todo'>
                         <div className="check">
-                            <input type="checkbox"/>
+                            <input type="checkbox"
+                                   checked={item.completed}
+                                   onChange={() => editClick(item.id, item.completed)}
+                            />
                         </div>
                         <div className="title">
                             {item.title}
@@ -48,7 +47,7 @@ function App() {
                 )
             })}
         </div>
-    );
-}
+    )
+    }
 
 export default App;
