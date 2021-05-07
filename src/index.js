@@ -25,6 +25,20 @@ const reducer = (state = initialState, action) => {
                 loading: false
             }
 
+        case 'start_checking':
+            return{
+                ...state,
+                todos: state.todos.map(item =>{
+                    if(item.id === action.payload){
+                        return{
+                            ...item,
+                            checking: true
+                        }
+                    }
+                    return item
+                })
+            }
+
 
         case 'update':
             return{
@@ -33,7 +47,23 @@ const reducer = (state = initialState, action) => {
                     if(item.id === action.payload){
                         return{
                             ...item,
-                            completed: !item.completed
+                            completed: !item.completed,
+                            checking: false
+                        }
+                    }
+                    return item;
+                })
+            }
+
+
+        case 'start_deliting':
+            return{
+                ...state,
+                todos: state.todos.map(item =>{
+                    if(item.id === action.payload){
+                        return {
+                            ...item,
+                            deliting: true
                         }
                     }
                     return item;
